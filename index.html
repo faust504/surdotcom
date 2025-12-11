@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURYA.SATORU</title>
+    <link rel="icon" type="image/png" href="image.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@100;400;700&family=Teko:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['JetBrains Mono', 'monospace'],
+                        display: ['Teko', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        'sorcerer-bg': '#f3f4f6',       // Light Gray Base
+                        'sorcerer-dark': '#0a0a0a',     // Void Black
+                        'hollow-purple': '#a855f7',     // Cursed Energy Purple
+                        'hollow-red': '#ef4444',        // Reversal Red
+                        'infinity-blue': '#3b82f6',     // Six Eyes Blue
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+            color: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        /* Vector Core Lines (Background Grid) */
+        .vector-grid {
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Hollow Purple Energy Orb */
+        .hollow-orb {
+            position: fixed;
+            top: 10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(59,130,246,0.1) 50%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Reversal Red Orb */
+        .red-orb {
+            position: fixed;
+            bottom: 10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(239,68,68,0.2) 0%, transparent 70%);
+            filter: blur(50px);
+            z-index: -1;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        /* Clip Path for "Tech" Corners */
+        .tech-border {
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc(100% - 20px), 
+                calc(100% - 20px) 100%, 
+                0 100%
+            );
+        }
+
+        /* Glitch Text Effect on Hover */
+        .glitch-hover:hover {
+            text-shadow: 2px 2px #ef4444, -2px -2px #3b82f6;
+            transition: 0.2s;
+        }
+
+        /* Kanji Watermark */
+        .kanji-bg {
+            position: absolute;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 300px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col items-center p-4 md:p-8 selection:bg-hollow-purple selection:text-white">
+
+    <div class="vector-grid bg-grid-pattern"></div>
+    <div class="hollow-orb"></div>
+    <div class="red-orb"></div>
+
+    <nav class="w-full max-w-4xl fixed top-6 z-50 px-4">
+        <div class="flex justify-between items-center">
+            <div class="bg-sorcerer-dark text-white px-4 py-2 tech-border shadow-[4px_4px_0px_0px_#a855f7] hover:translate-x-1 transition-transform z-50">
+                <a href="#" class="font-display font-bold text-3xl tracking-wide uppercase">
+                    SURYA<span class="text-hollow-purple">.EXPANSION</span>
+                </a>
+            </div>
+
+            <div class="hidden md:flex bg-white/90 backdrop-blur-md border-2 border-sorcerer-dark px-6 py-2 gap-8 tech-border shadow-lg z-50">
+                <a href="#blog" class="font-display text-xl font-bold hover:text-hollow-purple tracking-widest uppercase transition-colors">Archive</a>
+                <a href="#about" class="font-display text-xl font-bold hover:text-infinity-blue tracking-widest uppercase transition-colors">Data</a>
+                <a href="https://www.instagram.com/toji_ffushigurooo_0/" class="font-display text-xl font-bold hover:text-hollow-red tracking-widest uppercase transition-colors">Contact</a>
+            </div>
+
+            <button onclick="toggleMenu()" class="md:hidden bg-white border-2 border-sorcerer-dark p-2 hover:bg-gray-100 transition-colors z-50 shadow-[4px_4px_0px_0px_#3b82f6]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sorcerer-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden mt-2 bg-sorcerer-dark border-l-4 border-hollow-purple shadow-xl">
+            <div class="flex flex-col p-4 gap-4">
+                <a href="#blog" onclick="toggleMenu()" class="text-white font-display text-2xl tracking-widest hover:text-hollow-purple transition-colors border-b border-gray-800 pb-2">>> ARCHIVE_LOGS</a>
+                <a href="#about" onclick="toggleMenu()" class="text-white font-display text-2xl tracking-widest hover:text-infinity-blue transition-colors border-b border-gray-800 pb-2">>> SUBJECT_DATA</a>
+                <a href="https://www.instagram.com/toji_ffushigurooo_0/" onclick="toggleMenu()" class="text-white font-display text-2xl tracking-widest hover:text-hollow-red transition-colors">>> CONTACT_LINK</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full max-w-4xl mt-32 flex flex-col gap-16 relative z-10">
+
+        <header class="text-center relative">
+            <div class="kanji-bg text-[15rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap md:block">
+                天上天下
+            </div>
+
+            <div class="inline-flex items-center gap-2 mb-4 px-4 py-1 border border-sorcerer-dark bg-white shadow-[2px_2px_0px_0px_#3b82f6]">
+                <span class="w-2 h-2 bg-infinity-blue rounded-full animate-pulse-fast"></span>
+                <span class="text-xs font-bold tracking-widest uppercase">Class 9A • Student ID: 28</span>
+            </div>
+            
+            <h1 class="text-8xl md:text-9xl font-display font-bold leading-[0.85] mb-6 glitch-hover cursor-default">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-infinity-blue via-hollow-purple to-hollow-red">Surya</span><br>
+                <span class="text-sorcerer-dark">H. B. Ridwansah</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl font-display uppercase tracking-widest text-gray-500 bg-white inline-block px-2">
+                // "Gomen Amanai" //
+            </p>
+        </header>
+
+        <section id="blog" class="relative">
+            <div class="absolute -top-6 left-0 bg-sorcerer-dark text-white px-3 py-1 font-mono text-xs z-20 tech-border">
+                :: DOMAIN_LOGS_01 ::
+            </div>
+
+            <div class="bg-white border-2 border-sorcerer-dark p-6 md:p-10 tech-border shadow-[8px_8px_0px_0px_#a855f7] group hover:shadow-[12px_12px_0px_0px_#3b82f6] transition-all duration-300">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b-2 border-gray-100 pb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-sorcerer-dark text-white flex items-center justify-center font-bold text-xl tech-border">無</div>
+                        <div>
+                            <h2 class="text-4xl font-display font-bold text-sorcerer-dark uppercase leading-none">Pengalaman di SPEGA</h2>
+                            <span class="text-xs font-mono text-hollow-purple">12 DEC 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative mb-8 bg-black p-1 tech-border">
+                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-infinity-blue to-transparent z-10"></div>
+                    <div class="aspect-video w-full bg-gray-900 relative overflow-hidden">
+                        <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
+                        </div>
+                        <iframe class="w-full h-full relative z-0 mix-blend-screen opacity-90 hover:opacity-100 transition-opacity" src="https://www.youtube.com/embed/CARcWG8XoCY?si=Lwu-tA9VOPWf1pSq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div id="blog-content" class="prose prose-lg max-w-none prose-headings:font-display prose-headings:uppercase prose-strong:text-hollow-purple prose-p:font-sans prose-p:text-sm prose-p:leading-relaxed"></div>
+            </div>
+        </section>
+
+        <section id="about" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-5 bg-sorcerer-dark text-white p-2 tech-border shadow-[8px_8px_0px_0px_#ef4444] relative">
+                <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-[float_3s_linear_infinite]"></div>
+                
+                <div class="w-full aspect-square bg-gray-800 overflow-hidden mb-4 border border-gray-700 relative group">
+                    <img src="image.png" alt="Surya" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-infinity-blue shadow-[0_0_20px_5px_#3b82f6] opacity-0 group-hover:opacity-60 transition-opacity duration-100 mix-blend-overlay"></div>
+                </div>
+
+                <div class="p-4 text-center border-t border-gray-700">
+                    <h3 class="font-display font-bold text-4xl tracking-wide">Surya Hayyun Buwana Ridwansah</h3>
+                    <p class="font-mono text-xs text-gray-400 mb-4">SURABAYA SECTOR // INDONESIA</p>
+                    
+                    <div class="grid grid-cols-2 gap-2 text-center">
+                        <div class="bg-gray-800 py-2 border border-gray-600">
+                            <span class="block text-[10px] text-infinity-blue">CLASS</span>
+                            <span class="font-display text-xl">9A</span>
+                        </div>
+                        <div class="bg-gray-800 py-2 border border-gray-600">
+                            <span class="block text-[10px] text-hollow-red">NUMBER</span>
+                            <span class="font-display text-xl">28</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-7 bg-white border-2 border-sorcerer-dark p-8 tech-border shadow-[8px_8px_0px_0px_#111827] relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 text-[10rem] text-gray-100 font-display font-bold leading-none pointer-events-none select-none">無限</div>
+                <div class="relative z-10">
+                    <h2 class="text-5xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-sorcerer-dark to-gray-500 uppercase">Subject Info</h2>
+                    <div id="about-content" class="prose prose-stone max-w-none font-mono text-sm border-l-4 border-hollow-purple pl-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-10 mb-20 text-center w-full max-w-4xl border-t border-gray-300 pt-8">
+            <div class="flex justify-center gap-4 mb-4">
+                <div class="h-1 w-10 bg-hollow-red"></div>
+                <div class="h-1 w-10 bg-hollow-purple"></div>
+                <div class="h-1 w-10 bg-infinity-blue"></div>
+            </div>
+            <p class="text-sorcerer-dark font-mono text-xs uppercase tracking-widest">
+                wassalamualaikum warahmatullahi wabarakatuh<br>
+                <span class="text-gray-400">// sekian terimakasih //</span>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. TOGGLE MENU FUNCTION (FIXED) ---
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        // --- 2. CONTENT DATA ---
+        const blogMarkdown = `
+**TECHNIQUE: KALCER**. Buktinya **aku** murid spega dan aku **kalcer**.
+
+mk momen ketiak when ketika tni korut selatan dan tni amerika nobar bareng nenton drakor jepang, di monas nasional sama cewe sadboy, finally akhirnya gw laper pengen nasgor goreng sama ayam chicken dan yap gw otw dalam perjalanan untuk beli ayam chicken dan esteh hangat trs gw mabar sendiri sambil dengerin my favorite musik gw trs gw mode on aktif dinyalakan.
+
+Gw mabar sendiri bersama dua trio, but tapi nasgor goreng sama mie ayam selalu always tapi yg ytta aja thanks you banget all semuanya yg telah repost ulang video vt tiktok gw semoga next time selanjutnya bisa lebih better lagi biar makin inspiratif dan more edukatif.
+
+### LIKES & INTERESTS:
+* [x] Es teh kantin
+* [x] Uang
+* [x] Jamkos
+`;
+
+        const aboutMarkdown = `
+IDENTITY: **Surya Hayyun Buwana Ridwansah**
+ALIAS: **Surya**
+
+### Quote:
+
+> Tenjō tenge yuiga dokuson (天上天下唯我独尊)
+`;
+
+        // Render Markdown
+        document.getElementById('blog-content').innerHTML = marked.parse(blogMarkdown);
+        document.getElementById('about-content').innerHTML = marked.parse(aboutMarkdown);
+    </script>
+</body>
+</html>
